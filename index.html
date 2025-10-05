@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Gold Market</title>
+  <link rel="icon" type="image/png" href="images/ahmed.jpg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+
+  <script>
+    // Tailwind dark mode via class strategy
+    tailwind.config = {
+      darkMode: 'class',
+    };
+  </script>
+</head>
+
+<body class="bg-gradient-to-r from-yellow-50 via-white to-yellow-100 min-h-screen flex flex-col transition-colors duration-500">
+
+  <!-- Dark Mode Toggle Button -->
+
+
+  <!-- Intro Overlay -->
+  <div id="intro-overlay" class="fixed inset-0 bg-yellow-400 flex z-50">
+    <div class="flex justify-center items-center w-1/2 overflow-hidden">
+      <img src="images/ahmed.jpg" id="intro-image" class="w-full h-full object-cover" />
+    </div>
+    <div class="flex flex-col justify-center w-1/2 pl-12">
+      <h1 id="intro-title" class="text-6xl font-bold text-gray-900 opacity-0 translate-x-[-100%]">سبائك الكويت</h1>
+      <p id="intro-subtitle" class="text-2xl text-gray-800 mt-4 opacity-0">نطوع الذهب لاحلامك</p>
+    </div>
+  </div>
+
+<!-- Navigation -->
+<nav class="bg-yellow-400 shadow-md sticky top-0 z-10 dark:bg-gray-800 dark:text-yellow-200 transition-colors duration-500">
+  <div class="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
+    
+    <!-- Right Side: Logo + Title -->
+    <div class="flex items-center gap-3 h-full">
+<img 
+  src="images/logo.png" 
+  alt="سبائك الكويت" 
+  class="h-full w-auto object-contain shadow-md bg-amber-950 dark:bg-transparent rounded-md p-1 dark:brightness-90"
+>      <h1 class="text-xl font-bold text-gray-800 dark:text-yellow-200">سبائك الكويت</h1>
+    </div>
+
+    <!-- Center: Nav Links -->
+    <ul id="nav-links" class="flex space-x-6 space-x-reverse text-sm font-medium text-gray-800 dark:text-yellow-100">
+      <!-- Add links here if needed -->
+    </ul>
+
+    <!-- Left Side: Countdown + Toggle -->
+    <div class="flex items-center gap-4">
+      <div class="text-gray-700 dark:text-yellow-200 text-sm sm:text-base">
+        Next Update In: <span id="countdown">15</span>s
+      </div>
+      <!-- Dark Mode Toggle Button -->
+      <button id="theme-toggle" class="bg-gray-800 text-white px-3 py-2 rounded-lg shadow-md hover:bg-gray-700 dark:bg-yellow-300 dark:text-gray-900 transition-all">
+        🌙
+      </button>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+  <!-- Slogan Overlay -->
+  <div id="slogan-overlay" class="fixed inset-0 bg-yellow-400 bg-opacity-95 flex items-center justify-center text-center text-4xl sm:text-6xl font-bold text-gray-900 hidden z-50 dark:bg-gray-900 dark:text-yellow-200"></div>
+
+  <main class="flex-1 w-full p-6 dark:bg-gray-900 transition-colors duration-500">
+    <header class="flex items-center justify-between mb-6">
+      <h2 class="text-3xl font-bold text-gray-800 dark:text-yellow-200" id="page-title">الأسعار</h2>
+      <div class="text-lg text-gray-600 dark:text-gray-300">Updated: <span id="last-updated">—</span></div>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="cards"></div>
+  </main>
+
+  <footer class="bg-yellow-400 text-gray-800 py-4 mt-8 shadow-inner dark:bg-gray-800 dark:text-yellow-200 transition-colors duration-500">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center">
+      <p class="text-sm">© 2025 Gold Market. All rights reserved.</p>
+      <div class="flex space-x-4 mt-2 sm:mt-0">
+        <a href="#" class="hover:text-gray-600 text-sm dark:hover:text-yellow-300">Privacy Policy</a>
+        <a href="#" class="hover:text-gray-600 text-sm dark:hover:text-yellow-300">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <template id="card-template">
+    <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow border border-yellow-200 dark:bg-gray-800 dark:border-gray-700">
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="text-2xl font-bold text-gray-500 dark:text-gray-400">عـيـار</div>
+          <div class="text-3xl font-bold text-yellow-700 dark:text-yellow-400" data-role="carat">24K</div>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2l2.9 6.2L21 9l-5 3.9L17 21l-5-3.3L7 21l1-8.1L3 9l6.1-.8L12 2z" stroke="#F59E0B" stroke-width="1.2" fill="#FBBF24"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mt-4 grid grid-cols-2 gap-4">
+        <div class="p-4 rounded-lg bg-green-50 dark:bg-green-900/30">
+          <div class="text-base text-gray-500 dark:text-gray-300">سعر البيع - دينار كويتي </div>
+          <div class="text-8xl text-center font-bold text-green-700 dark:text-green-400" data-role="sell">0.000</div>
+        </div>
+        <div class="p-4 rounded-lg bg-red-50 dark:bg-red-900/30">
+          <div class="text-base text-gray-500 dark:text-gray-300">سعر الشراء - دينار كويتي</div>
+          <div class="text-8xl text-center font-bold text-red-700 dark:text-red-400" data-role="buy">0.000</div>
+        </div>
+      </div>
+      <div class="mt-4 flex items-center justify-between text-lg">
+        <div class="flex items-center gap-2">
+          <div data-role="change-icon"></div>
+          <div data-role="change" class="font-semibold dark:text-yellow-200">0.000 (0.00%)</div>
+        </div>
+        <div class="text-sm text-gray-400 dark:text-gray-300">per gram</div>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    // Dark mode toggle logic
+    const toggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Load saved theme
+    if (localStorage.theme === 'dark') {
+      body.classList.add('dark');
+      toggleBtn.textContent = '☀️  ';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      const isDark = body.classList.toggle('dark');
+      toggleBtn.textContent = isDark ? '☀️ ' : '🌙 ';
+      localStorage.theme = isDark ? 'dark' : 'light';
+    });
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
