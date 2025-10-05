@@ -6,20 +6,39 @@
   <title>Gold Market</title>
   <link rel="icon" type="image/png" href="images/ahmed.jpg" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Responsive price font */
+[data-role="sell"],
+[data-role="buy"] {
+  font-size: clamp(2.5rem, 6vw, 8rem); /* min 2.5rem, scales with 6% of viewport, max 8rem */
+  line-height: 1.1;
+  word-break: break-word;
+}
 
+
+    /* Intro Overlay Animations */
+    #intro-overlay { position: fixed; inset:0; z-index:50; display:flex; background-color:#facc15; }
+    #intro-image { width:100%; height:100%; object-fit:cover; animation:imageSlideZoom 4s forwards; }
+    #intro-title { opacity:0; animation:titleSlideIn 2s forwards; animation-delay:1s; }
+    #intro-subtitle { opacity:0; animation:subtitleFadeIn 2s forwards; animation-delay:2s; }
+
+    @keyframes imageSlideZoom {
+      0%{transform:scale(1.5) translateX(100%);opacity:0}
+      50%{transform:scale(1.1) translateX(20%);opacity:1}
+      80%{transform:scale(1) translateX(0);opacity:1}
+      100%{transform:scale(1) translateX(30px);opacity:1}
+    }
+    @keyframes titleSlideIn {0%{transform:translateX(-100%);opacity:0}100%{transform:translateX(0);opacity:1}}
+    @keyframes subtitleFadeIn {0%{opacity:0}100%{opacity:1}}
+    @keyframes fadeZoomInOut {0%{opacity:0;transform:scale(0.8)}15%{opacity:1;transform:scale(1.2)}50%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1)}}
+    .slogan-animate {animation:fadeZoomInOut 3s ease-in-out forwards;}
+  </style>
   <script>
-    // Tailwind dark mode via class strategy
-    tailwind.config = {
-      darkMode: 'class',
-    };
+    tailwind.config = { darkMode: 'class' };
   </script>
 </head>
 
 <body class="bg-gradient-to-r from-yellow-50 via-white to-yellow-100 min-h-screen flex flex-col transition-colors duration-500">
-
-  <!-- Dark Mode Toggle Button -->
-
 
   <!-- Intro Overlay -->
   <div id="intro-overlay" class="fixed inset-0 bg-yellow-400 flex z-50">
@@ -27,48 +46,27 @@
       <img src="images/ahmed.jpg" id="intro-image" class="w-full h-full object-cover" />
     </div>
     <div class="flex flex-col justify-center w-1/2 pl-12">
-      <h1 id="intro-title" class="text-6xl font-bold text-gray-900 opacity-0 translate-x-[-100%]">سبائك الكويت</h1>
-      <p id="intro-subtitle" class="text-2xl text-gray-800 mt-4 opacity-0">نطوع الذهب لاحلامك</p>
+      <h1 id="intro-title" class="text-6xl font-bold text-gray-900 translate-x-[-100%]">سبائك الكويت</h1>
+      <p id="intro-subtitle" class="text-2xl text-gray-800 mt-4">نطوع الذهب لاحلامك</p>
     </div>
   </div>
 
-<!-- Navigation -->
-<nav class="bg-yellow-400 shadow-md sticky top-0 z-10 dark:bg-gray-800 dark:text-yellow-200 transition-colors duration-500">
-  <div class="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
-    
-    <!-- Right Side: Logo + Title -->
-    <div class="flex items-center gap-3 h-full">
-<img 
-  src="images/logo.png" 
-  alt="سبائك الكويت" 
-  class="h-full w-auto object-contain shadow-md bg-amber-950 dark:bg-transparent rounded-md p-1 dark:brightness-90"
->      <h1 class="text-xl font-bold text-gray-800 dark:text-yellow-200">سبائك الكويت</h1>
-    </div>
-
-    <!-- Center: Nav Links -->
-    <ul id="nav-links" class="flex space-x-6 space-x-reverse text-sm font-medium text-gray-800 dark:text-yellow-100">
-      <!-- Add links here if needed -->
-    </ul>
-
-    <!-- Left Side: Countdown + Toggle -->
-    <div class="flex items-center gap-4">
-      <div class="text-gray-700 dark:text-yellow-200 text-sm sm:text-base">
-        Next Update In: <span id="countdown">15</span>s
+  <!-- Navigation -->
+  <nav class="bg-yellow-400 shadow-md sticky top-0 z-10 dark:bg-gray-800 dark:text-yellow-200 transition-colors duration-500">
+    <div class="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
+      <div class="flex items-center gap-3 h-full">
+        <img src="images/logo.png" alt="سبائك الكويت" class="h-full w-auto object-contain shadow-md bg-amber-950 dark:bg-transparent rounded-md p-1 dark:brightness-90">
+        <h1 class="text-xl font-bold text-gray-800 dark:text-yellow-200">سبائك الكويت</h1>
       </div>
-      <!-- Dark Mode Toggle Button -->
-      <button id="theme-toggle" class="bg-gray-800 text-white px-3 py-2 rounded-lg shadow-md hover:bg-gray-700 dark:bg-yellow-300 dark:text-gray-900 transition-all">
-        🌙
-      </button>
+      <ul id="nav-links" class="flex space-x-6 space-x-reverse text-sm font-medium text-gray-800 dark:text-yellow-100"></ul>
+      <div class="flex items-center gap-4">
+        <div class="text-gray-700 dark:text-yellow-200 text-sm sm:text-base">
+          Next Update In: <span id="countdown">15</span>s
+        </div>
+        <button id="theme-toggle" class="bg-gray-800 text-white px-3 py-2 rounded-lg shadow-md hover:bg-gray-700 dark:bg-yellow-300 dark:text-gray-900 transition-all">🌙</button>
+      </div>
     </div>
-  </div>
-</nav>
-
-
-
-
-
-
-
+  </nav>
 
   <!-- Slogan Overlay -->
   <div id="slogan-overlay" class="fixed inset-0 bg-yellow-400 bg-opacity-95 flex items-center justify-center text-center text-4xl sm:text-6xl font-bold text-gray-900 hidden z-50 dark:bg-gray-900 dark:text-yellow-200"></div>
@@ -107,12 +105,12 @@
       </div>
       <div class="mt-4 grid grid-cols-2 gap-4">
         <div class="p-4 rounded-lg bg-green-50 dark:bg-green-900/30">
-          <div class="text-base text-gray-500 dark:text-gray-300">سعر البيع - دينار كويتي </div>
-          <div class="text-8xl text-center font-bold text-green-700 dark:text-green-400" data-role="sell">0.000</div>
+          <div class="text-base text-gray-500 dark:text-gray-300">سعر البيع - دينار كويتي</div>
+          <div class="text-center font-bold text-green-700 dark:text-green-400" data-role="sell">0.000</div>
         </div>
         <div class="p-4 rounded-lg bg-red-50 dark:bg-red-900/30">
           <div class="text-base text-gray-500 dark:text-gray-300">سعر الشراء - دينار كويتي</div>
-          <div class="text-8xl text-center font-bold text-red-700 dark:text-red-400" data-role="buy">0.000</div>
+          <div class="text-center font-bold text-red-700 dark:text-red-400" data-role="buy">0.000</div>
         </div>
       </div>
       <div class="mt-4 flex items-center justify-between text-lg">
@@ -126,23 +124,92 @@
   </template>
 
   <script>
-    // Dark mode toggle logic
     const toggleBtn = document.getElementById('theme-toggle');
     const body = document.body;
-
-    // Load saved theme
-    if (localStorage.theme === 'dark') {
-      body.classList.add('dark');
-      toggleBtn.textContent = '☀️  ';
-    }
-
+    if (localStorage.theme === 'dark') { body.classList.add('dark'); toggleBtn.textContent = '☀️'; }
     toggleBtn.addEventListener('click', () => {
       const isDark = body.classList.toggle('dark');
-      toggleBtn.textContent = isDark ? '☀️ ' : '🌙 ';
+      toggleBtn.textContent = isDark ? '☀️' : '🌙';
       localStorage.theme = isDark ? 'dark' : 'light';
+    });
+
+    const priceAdjustments = { box1:0, box2:0, box3:0, box4:0 };
+    const carats = ["24K","22K","21K","18K"];
+    const cardsContainer = document.getElementById("cards");
+    const lastUpdated = document.getElementById("last-updated");
+    const countdownEl = document.getElementById("countdown");
+
+    function formatPrice(p){ return Number(p).toLocaleString("en",{minimumFractionDigits:3,maximumFractionDigits:3}); }
+
+    async function fetchPrices(){
+      try{
+        const resp = await fetch("https://api.daralsabaek.com/api/goldAndFundBalance/getMetalPrices");
+        const data = await resp.json();
+        if(!data.isSuccess || !Array.isArray(data.result)) return;
+
+        const gold24 = data.result.find(i=>i.metalType===1);
+        if(!gold24) return;
+
+        const price24 = gold24.buyPrice24 - 1 + priceAdjustments.box1;
+        const prices = {
+          "24K": price24,
+          "22K": price24*(22/24) + priceAdjustments.box2,
+          "21K": price24*(21/24) + priceAdjustments.box3,
+          "18K": price24*(18/24) + priceAdjustments.box4
+        };
+
+        cardsContainer.innerHTML = "";
+        const tpl = document.getElementById("card-template");
+
+        carats.forEach(carat=>{
+          const node = tpl.content.cloneNode(true);
+          node.querySelector("[data-role='carat']").textContent = carat;
+          node.querySelector("[data-role='sell']").textContent = formatPrice(prices[carat]);
+          node.querySelector("[data-role='buy']").textContent = formatPrice(prices[carat]-0.871);
+          node.querySelector("[data-role='change']").textContent = "0.000 (0.00%)";
+          cardsContainer.appendChild(node);
+        });
+
+        lastUpdated.textContent = new Date().toLocaleString();
+      } catch(e){ console.error(e); }
+    }
+
+    function startCountdown(){
+      let timeLeft = 15;
+      countdownEl.textContent = timeLeft;
+      setInterval(()=>{
+        timeLeft--;
+        if(timeLeft <= 0){ fetchPrices(); timeLeft = 15; }
+        countdownEl.textContent = timeLeft;
+      }, 1000);
+    }
+
+    const slogans = { ar:["مرحبا بك في سبايك 24","أفضل الأسعار كل يوم","موثوق من قبل الآلاف","تألقي مثل الذهب الخالص"] };
+    const sloganOverlay = document.getElementById("slogan-overlay");
+    let sloganIndex = 0;
+    function showSlogan(){
+      sloganOverlay.textContent = slogans["ar"][sloganIndex];
+      sloganIndex = (sloganIndex+1)%slogans["ar"].length;
+      sloganOverlay.classList.remove("hidden");
+      sloganOverlay.classList.add("slogan-animate");
+      setTimeout(()=>{ sloganOverlay.classList.add("hidden"); sloganOverlay.classList.remove("slogan-animate"); },4000);
+    }
+    function startSloganSequence(){ showSlogan(); setInterval(showSlogan,15000); }
+
+    window.addEventListener("load",()=>{
+      const overlay = document.getElementById("intro-overlay");
+      setTimeout(()=>{
+        overlay.style.transition = "opacity 0.5s ease";
+        overlay.style.opacity = 0;
+        setTimeout(()=>{
+          overlay.style.display = "none";
+          startSloganSequence();
+          fetchPrices();
+          startCountdown();
+        },500);
+      },4000);
     });
   </script>
 
-  <script src="script.js"></script>
 </body>
 </html>

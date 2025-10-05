@@ -1,5 +1,14 @@
 
-    /* Intro Overlay Animations */
+
+[data-role="sell"],
+[data-role="buy"] {
+  font-size: clamp(2rem, 8vw, 6rem); /* min 2rem on small screens, max 6rem (~8xl) */
+  line-height: 1.1;
+  word-break: break-word;
+}
+
+
+    
     @keyframes imageSlideZoom {0%{transform:scale(1.5) translateX(100%);opacity:0}50%{transform:scale(1.1) translateX(20%);opacity:1}80%{transform:scale(1) translateX(0);opacity:1}100%{transform:scale(1) translateX(30px);opacity:1}}
     @keyframes titleSlideIn {0%{transform:translateX(-100%);opacity:0}100%{transform:translateX(0);opacity:1}}
     @keyframes subtitleFadeIn {0%{opacity:0}100%{opacity:1}}

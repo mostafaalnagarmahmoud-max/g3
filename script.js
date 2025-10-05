@@ -8,6 +8,27 @@
 
     function formatPrice(p){ return Number(p).toLocaleString("en",{minimumFractionDigits:3,maximumFractionDigits:3}); }
 
+
+
+
+
+
+
+function fitTextToDiv(el, minFontPx = 24) {
+  const computedStyle = window.getComputedStyle(el);
+  const defaultFontPx = parseFloat(computedStyle.fontSize); // keep Tailwind 8xl
+
+  let fontSize = defaultFontPx;
+  const parentWidth = el.parentElement.offsetWidth - 10; // padding
+
+  while (el.scrollWidth > parentWidth && fontSize > minFontPx) {
+    fontSize -= 1;
+    el.style.fontSize = fontSize + "px";
+  }
+}
+
+
+
     async function fetchPrices(){
       try{
         const resp = await fetch("https://api.daralsabaek.com/api/goldAndFundBalance/getMetalPrices");
@@ -27,17 +48,54 @@
 
         cardsContainer.innerHTML = "";
         const tpl = document.getElementById("card-template");
+
         carats.forEach(carat=>{
           const node = tpl.content.cloneNode(true);
+
+          const sellEl = node.querySelector("[data-role='sell']");
+          const buyEl = node.querySelector("[data-role='buy']");
+
+          // Set prices
+          sellEl.textContent = formatPrice(prices[carat]);
+          buyEl.textContent = formatPrice(prices[carat]-0.871);
+
+          // Auto-fit prices
+
+fitTextToDiv(sellEl);
+fitTextToDiv(buyEl);
+
           node.querySelector("[data-role='carat']").textContent = carat;
-          node.querySelector("[data-role='sell']").textContent = formatPrice(prices[carat]);
-          node.querySelector("[data-role='buy']").textContent = formatPrice(prices[carat]-0.871);
           node.querySelector("[data-role='change']").textContent = "0.000 (0.00%)";
+
           cardsContainer.appendChild(node);
         });
+
         lastUpdated.textContent = new Date().toLocaleString();
-      }catch(e){ console.error(e); }
+      } catch(e){
+        console.error(e);
+      }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     function startCountdown(){
       let timeLeft=15;
