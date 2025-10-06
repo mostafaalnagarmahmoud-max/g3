@@ -150,7 +150,7 @@
         const gold24 = data.result.find(i=>i.metalType===1);
         if(!gold24) return;
 
-        const price24 = gold24.buyPrice24 - 1 + priceAdjustments.box1;
+        const price24 = gold24.buyPrice24  + priceAdjustments.box1;
         const prices = {
           "24K": price24,
           "22K": price24*(22/24) + priceAdjustments.box2,
