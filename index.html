@@ -10,9 +10,10 @@
     /* Responsive price font */
 [data-role="sell"],
 [data-role="buy"] {
-  font-size: clamp(2rem, 3vw, 6rem); /* min 2.5rem, scales with 6% of viewport, max 8rem */
+ font-size: clamp(2.5rem, 6vw, 6rem); /* min 2.5rem, scales with 6% of viewport, max 8rem */
   line-height: 1.1;
   word-break: break-word;
+  
     #cards {
     grid-template-rows: repeat(2, 1fr);
   }
@@ -82,7 +83,7 @@
 
     <div 
   id="cards"
-  class="grid grid-cols-1 md:grid-cols-2 gap-5  items-stretch content-center"
+  class="grid grid-cols-1 md:grid-cols-2 gap-6  items-stretch content-center"
 >
 </div>
   </main>
