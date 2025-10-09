@@ -8,73 +8,25 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     /* Responsive price font */
-    .price-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100px;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    /* ✅ Responsive font sizing with no wrap */
     [data-role="sell"],
     [data-role="buy"] {
-      display: inline-block;
-      font-weight: bold;
-      text-align: center;
+      font-size: clamp(2.5rem, 5vw, 6rem);
       line-height: 1.1;
-      white-space: nowrap;
-      width: 100%;
-      transform-origin: center;
-      font-size: 6rem; /* Base size */
-    }
-
-    /* 🔧 Smooth responsive adjustments */
-    @media (max-width: 1024px) {
-      [data-role="sell"], [data-role="buy"] { font-size: 5rem; }
-    }
-    @media (max-width: 768px) {
-      [data-role="sell"], [data-role="buy"] { font-size: 4rem; }
-    }
-    @media (max-width: 480px) {
-      [data-role="sell"], [data-role="buy"] { font-size: 3rem; }
+      text-align: center;
+      font-weight: bold;
+      word-break: break-word;
     }
 
     #cards {
       grid-template-rows: repeat(2, 1fr);
     }
 
+
     /* Intro Overlay Animations */
-    #intro-overlay { 
-      position: fixed; 
-      inset:0; 
-      z-index:50; 
-      display:flex; 
-      flex-direction: row;
-      background-color:#facc15; 
-    }
-    
-    #intro-image { 
-      width:100%; 
-      height:100%; 
-      object-fit:cover; 
-      animation:imageSlideZoom 4s forwards; 
-    }
-    
-    #intro-title { 
-      opacity:0; 
-      animation:titleSlideIn 2s forwards; 
-      animation-delay:1s; 
-      font-size: clamp(2rem, 8vw, 4rem);
-    }
-    
-    #intro-subtitle { 
-      opacity:0; 
-      animation:subtitleFadeIn 2s forwards; 
-      animation-delay:2s; 
-      font-size: clamp(1rem, 4vw, 1.5rem);
-    }
+    #intro-overlay { position: fixed; inset:0; z-index:50; display:flex; background-color:#facc15; }
+    #intro-image { width:100%; height:100%; object-fit:cover; animation:imageSlideZoom 4s forwards; }
+    #intro-title { opacity:0; animation:titleSlideIn 2s forwards; animation-delay:1s; }
+    #intro-subtitle { opacity:0; animation:subtitleFadeIn 2s forwards; animation-delay:2s; }
 
     @keyframes imageSlideZoom {
       0%{transform:scale(1.5) translateX(100%);opacity:0}
@@ -82,94 +34,12 @@
       80%{transform:scale(1) translateX(0);opacity:1}
       100%{transform:scale(1) translateX(30px);opacity:1}
     }
-    
     @keyframes titleSlideIn {0%{transform:translateX(-100%);opacity:0}100%{transform:translateX(0);opacity:1}}
     @keyframes subtitleFadeIn {0%{opacity:0}100%{opacity:1}}
-    
-    /* Fixed slogan animation */
-    @keyframes fadeZoomInOut {
-      0% { opacity: 0; transform: scale(0.8); }
-      20% { opacity: 1; transform: scale(1.1); }
-      40% { opacity: 1; transform: scale(1); }
-      80% { opacity: 1; transform: scale(1); }
-      100% { opacity: 0; transform: scale(1); }
-    }
-    
-    .slogan-animate {
-      animation: fadeZoomInOut 4s ease-in-out forwards;
-    }
-    
-    /* TradingView widget responsiveness */
-    #tradingview-container {
-      width: 100%;
-      max-width: 300px;
-    }
-    
-    /* Navigation responsiveness */
-    @media (max-width: 768px) {
-      nav .max-w-6xl {
-        flex-wrap: wrap;
-        height: auto;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-      }
-      
-      #tradingview-container {
-        order: 3;
-        width: 100%;
-        margin-top: 0.5rem;
-      }
-      
-      #nav-links {
-        order: 2;
-        margin-top: 0.5rem;
-        justify-content: center;
-        width: 100%;
-      }
-
-      /* Mobile intro layout */
-      #intro-overlay {
-        flex-direction: column;
-      }
-      
-      #intro-image {
-        width: 100%;
-        height: 50%;
-      }
-    }
-    
-    /* Card grid responsiveness - MAX 2 COLUMNS */
-    #cards {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
-    
-    @media (max-width: 768px) {
-      #cards {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Slogan styling */
-    .slogan-text {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: clamp(1.5rem, 4vw, 3rem);
-      font-weight: bold;
-    }
-
-    .slogan-left {
-      left: 10%;
-      color: #1f2937;
-    }
-
-    .slogan-right {
-      right: 10%;
-      color: #facc15;
-    }
+    @keyframes fadeZoomInOut {0%{opacity:0;transform:scale(0.8)}15%{opacity:1;transform:scale(1.2)}50%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1)}}
+    .slogan-animate {animation:fadeZoomInOut 3s ease-in-out forwards;}
   </style>
+  <link rel="stylesheet" href="style1.css" />
   <script>
     tailwind.config = { darkMode: 'class' };
   </script>
@@ -178,36 +48,31 @@
 <body class="bg-gradient-to-r from-yellow-50 via-white to-yellow-100 min-h-screen flex flex-col transition-colors duration-500">
 
   <!-- Intro Overlay -->
-  <div id="intro-overlay">
-    <div class="flex flex-col justify-center items-center w-1/2 px-4 text-center">
-      <h1 id="intro-title" class="font-bold text-gray-900 translate-x-[-100%]">سبائك الكويت</h1>
-      <p id="intro-subtitle" class="text-gray-800 mt-4">نطوع الذهب لأحلامك</p>
-    </div>
+  <div id="intro-overlay" class="fixed inset-0 bg-yellow-400 flex z-50">
     <div class="flex justify-center items-center w-1/2 overflow-hidden">
-      <img src="images/ragab.png" id="intro-image" />
+      <img src="images/ragab.png" id="intro-image" class="w-full h-full object-cover" />
     </div>
-  </div>
-
-  <!-- Slogan Overlay -->
-  <div id="slogan-overlay" class="fixed inset-0 bg-yellow-400 bg-opacity-95 hidden z-40 dark:bg-gray-900 dark:bg-opacity-95">
-    <div class="slogan-text slogan-left" id="slogan-left"></div>
-    <div class="slogan-text slogan-right" id="slogan-right"></div>
+    <div class="flex flex-col justify-center w-1/2 pl-12">
+      <h1 id="intro-title" class="text-6xl font-bold text-gray-900 translate-x-[-100%]">سبائك الكويت</h1>
+      <p id="intro-subtitle" class="text-2xl text-gray-800 mt-4">نطوع الذهب لاحلامك</p>
+    </div>
   </div>
 
   <!-- Navigation -->
   <nav class="bg-yellow-400 shadow-md sticky top-0 z-10 dark:bg-gray-800 dark:text-yellow-200 transition-colors duration-500">
-    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row md:items-center md:justify-between md:h-16 py-2 md:py-0">
-      <div class="flex items-center gap-3 justify-center md:justify-start">
-        <img src="images/logo.png" alt="سبائك الكويت" class="h-12 w-auto object-contain shadow-md bg-amber-950 dark:bg-transparent rounded-md p-1 dark:brightness-90">
+    <div class="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
+      <div class="flex items-center gap-3 h-full">
+        <img src="images/logo.png" alt="سبائك الكويت" class="h-full w-auto object-contain shadow-md bg-amber-950 dark:bg-transparent rounded-md p-1 dark:brightness-90">
         <h1 class="text-xl font-bold text-gray-800 dark:text-yellow-200">سبائك الكويت</h1>
       </div>
 
-      <div class="flex-1 flex justify-center items-center mt-2 md:mt-0">
-        <div id="tradingview-container" class="h-[30px] w-full max-w-[300px]"></div>
+      <!-- TradingView Widget -->
+      <div class="flex-1 flex justify-center items-center h-full">
+        <div id="tradingview-container" class="h-[30px] w-[300px] border-spacing-5"></div>
       </div>
 
-      <ul id="nav-links" class="flex space-x-6 space-x-reverse text-sm font-medium text-gray-800 dark:text-yellow-100 mt-2 md:mt-0 justify-center"></ul>
-      <div class="flex items-center gap-4 justify-center mt-2 md:mt-0">
+      <ul id="nav-links" class="flex space-x-6 space-x-reverse text-sm font-medium text-gray-800 dark:text-yellow-100"></ul>
+      <div class="flex items-center gap-4">
         <div class="text-gray-700 dark:text-yellow-200 text-sm sm:text-base">
           Next Update In: <span id="countdown">15</span>s
         </div>
@@ -216,16 +81,19 @@
     </div>
   </nav>
 
-  <main class="flex-1 w-full p-4 sm:p-6 dark:bg-gray-900 transition-colors duration-500">
-    <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
-      <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-yellow-200" id="page-title">الأسعار</h2>
-      <div class="text-base sm:text-lg text-gray-600 dark:text-gray-300">Updated: <span id="last-updated">—</span></div>
+  <!-- Slogan Overlay -->
+  <div id="slogan-overlay" class="fixed inset-0 bg-yellow-400 bg-opacity-95 flex items-center justify-center text-center text-4xl sm:text-6xl font-bold text-gray-900 hidden z-50 dark:bg-gray-900 dark:text-yellow-200"></div>
+
+  <main class="flex-1 w-full p-6 dark:bg-gray-900 transition-colors duration-500 borderred">
+    <header class="flex items-center justify-between mb-6 bordergreen">
+      <h2 class="text-3xl font-bold text-gray-800 dark:text-yellow-200" id="page-title">الأسعار</h2>
+      <div class="text-lg text-gray-600 dark:text-gray-300">Updated: <span id="last-updated">—</span></div>
     </header>
 
-    <div id="cards" class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 items-stretch"></div>
+    <div id="cards" class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch content-center borderred"></div>
   </main>
 
-  <footer class="bg-yellow-400 text-gray-800 py-4 mt-8 shadow-inner dark:bg-gray-800 dark:text-yellow-200 transition-colors duration-500">
+  <footer class="bg-yellow-400 text-gray-800 py-4 mt-8 shadow-inner dark:bg-gray-800 dark:text-yellow-200 transition-colors duration-500 bordergreen">
     <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center">
       <p class="text-sm">© 2025 Gold Market. All rights reserved.</p>
       <div class="flex space-x-4 mt-2 sm:mt-0">
@@ -236,66 +104,66 @@
   </footer>
 
   <template id="card-template">
-    <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow border border-yellow-200 dark:bg-gray-800 dark:border-gray-700">
+    <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow border border-yellow-200 dark:bg-gray-800 dark:border-gray-700">
       <div class="flex items-center justify-between">
         <div>
-          <div class="text-xl sm:text-2xl font-bold text-gray-500 dark:text-gray-400">عـيـار</div>
-          <div class="text-2xl sm:text-3xl font-bold text-yellow-700 dark:text-yellow-400" data-role="carat">24K</div>
+          <div class="text-2xl font-bold text-gray-500 dark:text-gray-400">عـيـار</div>
+          <div class="text-3xl font-bold text-yellow-700 dark:text-yellow-400" data-role="carat">24K</div>
         </div>
         <div class="flex items-center gap-2">
-          <svg class="w-8 h-8 sm:w-10 sm:h-10" viewBox="0 0 24 24" fill="none">
+          <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none">
             <path d="M12 2l2.9 6.2L21 9l-5 3.9L17 21l-5-3.3L7 21l1-8.1L3 9l6.1-.8L12 2z" stroke="#F59E0B" stroke-width="1.2" fill="#FBBF24"/>
           </svg>
         </div>
       </div>
-      <div class="mt-4 grid grid-cols-2 gap-3 sm:gap-4">
-        <div class="p-3 sm:p-4 rounded-lg bg-green-50 dark:bg-green-900/30">
-          <div class="text-sm sm:text-base text-gray-500 dark:text-gray-300">سعر البيع - دينار كويتي</div>
-          <div class="price-container">
-            <div class="text-center font-bold text-green-700 dark:text-green-400" data-role="sell">0.000</div>
-          </div>
+      <div class="mt-4 grid grid-cols-2 gap-4">
+        <div class="p-4 rounded-lg bg-green-50 dark:bg-green-900/30">
+          <div class="text-base text-gray-500 dark:text-gray-300">سعر البيع - دينار كويتي</div>
+          <div class="text-center font-bold text-green-700 dark:text-green-400" data-role="sell">0.000</div>
         </div>
-        <div class="p-3 sm:p-4 rounded-lg bg-red-50 dark:bg-red-900/30">
-          <div class="text-sm sm:text-base text-gray-500 dark:text-gray-300">سعر الشراء - دينار كويتي</div>
-          <div class="price-container">
-            <div class="text-center font-bold text-red-700 dark:text-red-400" data-role="buy">0.000</div>
-          </div>
+        <div class="p-4 rounded-lg bg-red-50 dark:bg-red-900/30">
+          <div class="text-base text-gray-500 dark:text-gray-300">سعر الشراء - دينار كويتي</div>
+          <div class="text-center font-bold text-red-700 dark:text-red-400" data-role="buy">0.000</div>
         </div>
       </div>
-      <div class="mt-4 flex items-center justify-between text-base sm:text-lg">
+      <div class="mt-4 flex items-center justify-between text-lg">
         <div class="flex items-center gap-2">
           <div data-role="change-icon"></div>
           <div data-role="change" class="font-semibold dark:text-yellow-200">0.000 (0.00%)</div>
         </div>
-        <div class="text-xs sm:text-sm text-gray-400 dark:text-gray-300">per gram</div>
+        <div class="text-sm text-gray-400 dark:text-gray-300">per gram</div>
       </div>
     </div>
   </template>
 
   <script>
-    const toggleBtn = document.getElementById('theme-toggle');
-    const body = document.body;
+const toggleBtn = document.getElementById('theme-toggle');
+const root = document.documentElement;
 
+
+    // Load TradingView Widget
     function loadTradingViewWidget(theme = "light") {
       const container = document.getElementById("tradingview-container");
       container.innerHTML = "";
+
       const script = document.createElement("script");
       script.type = "text/javascript";
       script.src = "https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js";
       script.async = true;
       script.innerHTML = JSON.stringify({
         symbol: "OANDA:XAUUSD",
-        width: "100%",
+        width: "300",
         height: "50",
         colorTheme: theme,
         isTransparent: true,
         locale: "en"
       });
+
       container.appendChild(script);
     }
 
     if (localStorage.theme === 'dark') {
-      body.classList.add('dark');
+      root.classList.add('dark');
       toggleBtn.textContent = '☀️';
       loadTradingViewWidget("dark");
     } else {
@@ -303,7 +171,7 @@
     }
 
     toggleBtn.addEventListener('click', () => {
-      const isDark = body.classList.toggle('dark');
+      const isDark = root.classList.toggle('dark');
       toggleBtn.textContent = isDark ? '☀️' : '🌙';
       localStorage.theme = isDark ? 'dark' : 'light';
       loadTradingViewWidget(isDark ? 'dark' : 'light');
@@ -347,7 +215,6 @@
         });
 
         lastUpdated.textContent = new Date().toLocaleString();
-        autoResizePrices(); // ✅ fit text
       } catch(e){ console.error(e); }
     }
 
@@ -361,51 +228,34 @@
       }, 1000);
     }
 
-    // ✅ Dynamically resize price text to fit width
-    function autoResizePrices() {
-      document.querySelectorAll('[data-role="sell"], [data-role="buy"]').forEach(el => {
-        const parentWidth = el.parentElement.offsetWidth;
-        let fontSize = parseFloat(window.getComputedStyle(el).fontSize);
-        el.style.fontSize = fontSize + "px";
-        while (el.scrollWidth > parentWidth && fontSize > 10) {
-          fontSize -= 1;
-          el.style.fontSize = fontSize + "px";
-        }
-      });
-    }
-
-    const slogans = { 
-      left: ["جودة عالية", "أسعار منافسة", "ضمان الجودة", "خدمة مميزة"],
-      right: ["سبائك الكويت", "الذهب الأصلي", "استثمار آمن", "ثقة وعطاء"]
-    };
-    
+    const slogans = { ar:["مرحبا بك في سبايك 24","أفضل الأسعار كل يوم","موثوق من قبل الآلاف","تألقي مثل الذهب الخالص"] };
     const sloganOverlay = document.getElementById("slogan-overlay");
-    const sloganLeft = document.getElementById("slogan-left");
-    const sloganRight = document.getElementById("slogan-right");
     let sloganIndex = 0;
-    
     function showSlogan(){
-      sloganLeft.textContent = slogans.left[sloganIndex];
-      sloganRight.textContent = slogans.right[sloganIndex];
+      sloganOverlay.textContent = slogans["ar"][sloganIndex];
+      sloganIndex = (sloganIndex+1)%slogans["ar"].length;
       sloganOverlay.classList.remove("hidden");
       sloganOverlay.classList.add("slogan-animate");
-      setTimeout(() => {
+      setTimeout(()=>{
         sloganOverlay.classList.add("hidden");
         sloganOverlay.classList.remove("slogan-animate");
-      }, 4000);
-      sloganIndex = (sloganIndex + 1) % slogans.left.length;
+      },4000);
     }
+    function startSloganSequence(){ showSlogan(); setInterval(showSlogan,95000); }
 
-    // Intro removal
-    setTimeout(() => {
-      document.getElementById("intro-overlay").style.display = "none";
-      showSlogan();
-      setInterval(showSlogan, 8000);
-    }, 4000);
-
-    fetchPrices();
-    startCountdown();
-    window.addEventListener("resize", autoResizePrices);
+    window.addEventListener("load",()=>{
+      const overlay = document.getElementById("intro-overlay");
+      setTimeout(()=>{
+        overlay.style.transition = "opacity 0.5s ease";
+        overlay.style.opacity = 0;
+        setTimeout(()=>{
+          overlay.style.display = "none";
+          startSloganSequence();
+          fetchPrices();
+          startCountdown();
+        },500);
+      },4000);
+    });
   </script>
 </body>
 </html>
